@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:mdsflutter_example/Device.dart';
@@ -21,12 +20,11 @@ class _ScanWidgetState extends State<ScanWidget> {
     super.initState();
     initPlatformState();
     model = Provider.of<AppModel>(context, listen: false);
-    model.onDeviceMdsConnected((device) => {
-          Navigator.push(
+    model.onDeviceMdsConnected((device) => Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => DeviceInteractionWidget(device)))
-        });
+        );
   }
 
   Future<void> initPlatformState() async {

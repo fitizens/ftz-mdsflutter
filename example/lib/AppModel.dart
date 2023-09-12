@@ -1,6 +1,5 @@
 
 import 'dart:collection';
-import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +7,6 @@ import 'package:mdsflutter_example/Device.dart';
 import 'package:mdsflutter/Mds.dart';
 import 'package:mdsflutter_example/DeviceConnectionStatus.dart';
 
-import 'dart:developer' as developer;
 
 class AppModel extends ChangeNotifier {
 
@@ -79,23 +77,19 @@ class AppModel extends ChangeNotifier {
 
   void _onDeviceMdsConnected(String? address, String serial) {
     Device foundDevice = _deviceList.firstWhere((element) => element.address == address);
-    if (foundDevice != null) {
-      foundDevice.onMdsConnected(serial);
-      notifyListeners();
-      if (_onDeviceMdsConnectedCb != null) {
-        _onDeviceMdsConnectedCb!.call(foundDevice);
-      }
+    foundDevice.onMdsConnected(serial);
+    notifyListeners();
+    if (_onDeviceMdsConnectedCb != null) {
+      _onDeviceMdsConnectedCb!.call(foundDevice);
     }
   }
 
   void _onDeviceDisconnected(String? address) {
     Device foundDevice = _deviceList.firstWhere((element) => element.address == address);
-    if (foundDevice != null) {
-      foundDevice.onDisconnected();
-      notifyListeners();
-      if (_onDeviceDisonnectedCb != null) {
-        _onDeviceDisonnectedCb!.call(foundDevice);
-      }
+    foundDevice.onDisconnected();
+    notifyListeners();
+    if (_onDeviceDisonnectedCb != null) {
+      _onDeviceDisonnectedCb!.call(foundDevice);
     }
   }
 
